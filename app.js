@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
+
+// setup Neo4j driver
 const neo4j = require('neo4j-driver').v1;
+const { graphenedbPass, graphenedbURL, graphenedbUser} = require('./environment')
 
 // connect to Neo4j using the Bolt Protocol
-// Neo4j.auth.basic takes two parameters, a username (dangerously set to default right now and a password)
-const driver = neo4j.driver(
-  'bolt://localhost', neo4j.auth.basic('neo4j', 'ne1Upbph2'
-  ));
+// Neo4j.auth.basic takes two parameters, a username and a password
+const driver = neo4j.driver(graphenedbURL, neo4j.auth.basic(graphenedbUser, graphenedbPass));
+
 const session = driver.session();
 
 // Dummy Route - To test
